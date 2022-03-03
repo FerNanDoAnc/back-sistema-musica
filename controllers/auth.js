@@ -40,6 +40,7 @@ const login = async(req, res = response) => {
         const token = await generarJWT( usuario.id );
 
         res.json({
+            ok:true,
             usuario,
             token
         })
@@ -66,6 +67,7 @@ const googleSignin = async(req, res = response) => {
         if ( !usuario ) {
             // Tengo que crearlo
             const data = {
+                ok:true,
                 nombre,
                 correo,
                 password: ':P',
@@ -104,9 +106,57 @@ const googleSignin = async(req, res = response) => {
 
 }
 
+const revalidarToken= async (req, res=response) => {
+
+    const { _id } = req.usuario;
+    console.log(req)
+    try {
+      
+        // Verificar si el email existe
+        const dbusuario = await Usuario.findById({ _id });
+        if ( dbusuario ) {
+
+            const token=await generarJWT(_id,dbusuario);
+
+            return res.status(200).json({
+                ok:true,
+                message: 'Token Revalidado',
+                _id,
+                nombre:dbusuario.nombre,
+                correo:dbusuario.correo,
+                rol:dbusuario.rol,
+                token
+            });
+        }
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            msg: 'Error!! al revaliddar token'
+        });
+    }   
+
+
+    // const {_id}=req.usuario;
+
+    // // Leer la bd para obetener el email
+    // const dbUser=await Usuario.findById(_id);
+
+    // const token=await generarJWT(_id, dbUser.nombre);
+    // return res.json({
+    //     ok:true,
+    //     message: 'Token Revalidado',
+    //     _id,
+    //     nombre:dbUser.nombre,
+    //     correo:dbUser.correo,
+    //     rol:dbUser.rol,
+    //     token
+    // });
+}
 
 
 module.exports = {
     login,
-    googleSignin
+    googleSignin,
+    revalidarToken
 }

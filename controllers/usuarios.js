@@ -37,6 +37,7 @@ const usuariosPost = async(req, res = response) => {
     await usuario.save();
 
     res.json({
+        ok:true,
         usuario
     });
 }

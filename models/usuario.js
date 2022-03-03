@@ -20,7 +20,7 @@ const UsuarioSchema = Schema({
     },
     rol: {
         type: String,
-        required: true,
+        required: [false, 'El rol no es obligatoria'],
         default: 'USER_ROLE',
         emun: ['ADMIN_ROLE', 'USER_ROLE']
     },
@@ -42,4 +42,4 @@ UsuarioSchema.methods.toJSON = function() {
     return usuario;
 }
 
-module.exports = model( 'Usuario', UsuarioSchema );
+module.exports = model('Usuario', UsuarioSchema );
