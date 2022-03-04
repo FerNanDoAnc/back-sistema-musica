@@ -14,7 +14,8 @@ const emailExiste = async( correo = '' ) => {
     // Verificar si el correo existe
     const existeEmail = await Usuario.findOne({ correo });
     if ( existeEmail ) {
-        throw new Error(`El correo: ${ correo }, ya está registrado`);
+        // Correo ya registrado
+        throw new Error(`Correo no valido o ya ha sido registrado`);
     }
 }
 
