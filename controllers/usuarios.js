@@ -1,10 +1,9 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 
-
 const Usuario = require('../models/usuario');
 
-
+const { generarJWT } = require('../helpers/generar-jwt');
 
 const usuariosGet = async(req = request, res = response) => {
 
@@ -19,11 +18,14 @@ const usuariosGet = async(req = request, res = response) => {
     ]);
 
     res.json({
+        ok:true,
         total,
         usuarios
     });
 }
 
+
+// Crear Usuarios
 const usuariosPost = async(req, res = response) => {
     
     const { nombre, correo, password, rol } = req.body;
@@ -33,12 +35,19 @@ const usuariosPost = async(req, res = response) => {
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync( password, salt );
 
+    // Generar el JWT
+    const token = await generarJWT( usuario.id );
+    
     // Guardar en BD
     await usuario.save();
 
-    res.json({
+    res.status(200).json({
         ok:true,
-        usuario
+        usuario,
+        nombre,
+        correo,
+        rol,
+        token
     });
 }
 
@@ -55,11 +64,15 @@ const usuariosPut = async(req, res = response) => {
 
     const usuario = await Usuario.findByIdAndUpdate( id, resto );
 
-    res.json(usuario);
+    res.json({
+        ok:true,
+        usuario
+    });
 }
 
 const usuariosPatch = (req, res = response) => {
     res.json({
+        ok:true,
         msg: 'patch API - usuariosPatch'
     });
 }
@@ -70,7 +83,9 @@ const usuariosDelete = async(req, res = response) => {
     const usuario = await Usuario.findByIdAndUpdate( id, { estado: false } );
 
     
-    res.json(usuario);
+    res.json({
+        ok:true,
+        usuario});
 }
 
 

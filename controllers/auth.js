@@ -17,14 +17,16 @@ const login = async(req, res = response) => {
         const usuario = await Usuario.findOne({ correo });
         if ( !usuario ) {
             return res.status(400).json({
-                msg: 'Usuario / Password no son correctos - correo'
+                ok:false,
+                msg: 'Usuario y/o contraseña incorrectos'
             });
         }
 
         // SI el usuario está activo
         if ( !usuario.estado ) {
             return res.status(400).json({
-                msg: 'Usuario / Password no son correctos - estado: false'
+                ok:false,
+                msg: 'Cuenta inactivo'
             });
         }
 
@@ -32,23 +34,27 @@ const login = async(req, res = response) => {
         const validPassword = bcryptjs.compareSync( password, usuario.password );
         if ( !validPassword ) {
             return res.status(400).json({
-                msg: 'Usuario / Password no son correctos - password'
+                ok:false,
+                msg: 'Usuario y/o contraseña incorrectos'
             });
         }
 
         // Generar el JWT
         const token = await generarJWT( usuario.id );
 
-        res.json({
+        // respuesta para el login
+        res.status(200).json({
             ok:true,
             usuario,
-            token
+            token,
+            msg: 'Sesión Iniciada'
         })
 
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            msg: 'Hable con el administrador'
+            ok:false,
+            msg: 'Error, contacte al administrador'
         });
     }   
 
@@ -109,7 +115,6 @@ const googleSignin = async(req, res = response) => {
 const revalidarToken= async (req, res=response) => {
 
     const { _id } = req.usuario;
-    console.log(req)
     try {
       
         // Verificar si el email existe
@@ -132,26 +137,11 @@ const revalidarToken= async (req, res=response) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            msg: 'Error!! al revaliddar token'
+            ok:false,
+            msg: 'Error!! al revalidar token'
         });
     }   
 
-
-    // const {_id}=req.usuario;
-
-    // // Leer la bd para obetener el email
-    // const dbUser=await Usuario.findById(_id);
-
-    // const token=await generarJWT(_id, dbUser.nombre);
-    // return res.json({
-    //     ok:true,
-    //     message: 'Token Revalidado',
-    //     _id,
-    //     nombre:dbUser.nombre,
-    //     correo:dbUser.correo,
-    //     rol:dbUser.rol,
-    //     token
-    // });
 }
 
 

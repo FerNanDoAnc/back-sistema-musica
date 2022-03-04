@@ -30,6 +30,7 @@ router.put('/:id',[
     validarCampos
 ],usuariosPut );
 
+// Crear usuarios
 router.post('/',[
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('password', 'El password debe de ser más de 6 letras').isLength({ min: 6 }),
