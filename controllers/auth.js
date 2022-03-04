@@ -26,7 +26,7 @@ const login = async(req, res = response) => {
         if ( !usuario.estado ) {
             return res.status(400).json({
                 ok:false,
-                msg: 'Cuenta inactivo'
+                msg: 'Cuenta inactiva'
             });
         }
 
@@ -46,6 +46,7 @@ const login = async(req, res = response) => {
         res.status(200).json({
             ok:true,
             usuario,
+            nombre:usuario.nombre,
             token,
             msg: 'Sesión Iniciada'
         })
