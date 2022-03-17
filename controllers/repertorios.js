@@ -15,10 +15,11 @@ const obtenerRepertorios = async(req, res = response ) => {
             .limit(Number( limite ))
     ]);
 
-    res.json({
+    res.status(200).json({
         ok: true,
         total,
-        repertorios
+        repertorios,
+        msg: 'Repertorios obtenidos'
     });
 }
 
@@ -28,7 +29,7 @@ const obtenerRepertorio = async(req, res = response ) => {
     const repertorio = await Repertorio.findById( id )
                             .populate('usuario', 'nombre');
 
-    res.json( {
+    res.status(200).json( {
         ok:true,
         repertorio
     } );
@@ -76,7 +77,7 @@ const actualizarRepertorio = async( req, res = response ) => {
 
     const repertorio = await Repertorio.findByIdAndUpdate(id, data, { new: true });
 
-    res.json( {
+    res.status(200).json( {
         ok:true,
         repertorio
     });
@@ -88,7 +89,7 @@ const borrarRepertorio = async(req, res =response ) => {
     const { id } = req.params;
     const repertorioBorrado = await Repertorio.findByIdAndUpdate( id, { estado: false }, {new: true });
 
-    res.json( {
+    res.status(200).json( {
         ok:true,
         repertorioBorrado
     });
