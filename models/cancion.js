@@ -23,7 +23,8 @@ const CancionSchema = Schema({
     repertorio: {
         type: Schema.Types.ObjectId,
         ref: 'Repertorio',
-        required: true
+        required: true,
+        type: String,
     },
     descripcion: { type: String },
     disponible: { type: Boolean, defult: true },

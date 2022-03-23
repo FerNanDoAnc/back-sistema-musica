@@ -5,8 +5,10 @@ const { validarJWT, validarCampos, esAdminRole } = require('../middlewares');
 
 const { crearRepertorio,
         obtenerRepertorios,
+        obtenerRepertoriosPorUsuario,
         obtenerRepertorio,
         actualizarRepertorio, 
+        obtenerRepertoriosSinLimite,
         borrarRepertorio } = require('../controllers/repertorios');
 const { existeRepertorioPorId } = require('../helpers/db-validators');
 
@@ -16,26 +18,31 @@ const router = Router();
  * {{url}}/api/categorias
  */
 
-//  Obtener todas las categorias - publico
+//  Obtener todas las categorias con limite de 5 - publico
 router.get('/', obtenerRepertorios );
+
+// Obtener todas las categorias 
+router.get('/all', obtenerRepertoriosSinLimite );
 
 // Obtener una categoria por id - publico
 router.get('/:id',[
     check('id', 'No es un id de Mongo válido').isMongoId(),
     check('id').custom( existeRepertorioPorId ),
-    validarCampos,
+    // validarCampos,
 ], obtenerRepertorio );
 
 // Crear categoria - privado - cualquier persona con un token válido
-router.post('/', [ 
-    validarJWT,
+router.post('/', 
+[ 
+    // validarJWT,
     check('nombre','El nombre es obligatorio').not().isEmpty(),
     validarCampos
-], crearRepertorio);
+], 
+crearRepertorio);
 
 // Actualizar - privado - cualquiera con token válido
 router.put('/:id',[
-    validarJWT,
+    // validarJWT,
     check('nombre','El nombre es obligatorio').not().isEmpty(),
     check('id').custom( existeRepertorioPorId ),
     validarCampos
@@ -43,8 +50,8 @@ router.put('/:id',[
 
 // Borrar una categoria - Admin
 router.delete('/:id',[
-    validarJWT,
-    esAdminRole,
+    // validarJWT,
+    // esAdminRole,
     check('id', 'No es un id de Mongo válido').isMongoId(),
     check('id').custom( existeRepertorioPorId ),
     validarCampos,

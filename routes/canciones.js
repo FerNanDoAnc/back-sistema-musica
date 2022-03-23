@@ -26,7 +26,7 @@ router.get('/:id',[
 
 // Crear repertorio - privado - cualquier persona con un token válido
 router.post('/', [ 
-    validarJWT,
+    // validarJWT,
     check('nombre','El nombre es obligatorio').not().isEmpty(),
     check('repertorio','No es un id de Mongo').isMongoId(),
     check('repertorio').custom( existeRepertorioPorId ),
@@ -35,7 +35,7 @@ router.post('/', [
 
 // Actualizar - privado - cualquiera con token válido
 router.put('/:id',[
-    validarJWT,
+    // validarJWT,
     // check('repertorio','No es un id de Mongo').isMongoId(),
     check('id').custom( existeCancionPorId ),
     validarCampos
@@ -43,7 +43,7 @@ router.put('/:id',[
 
 // Borrar una repertorio - Admin
 router.delete('/:id',[
-    validarJWT,
+    // validarJWT,
     esAdminRole,
     check('id', 'No es un id de Mongo válido').isMongoId(),
     check('id').custom( existeCancionPorId ),
