@@ -14,26 +14,7 @@ const obtenerRepertorios = async(req, res = response ) => {
             .skip( Number( desde ) )
             .limit(Number( limite ))
     ]);
-
-    res.status(200).json({
-        ok: true,
-        total,
-        repertorios,
-        msg: 'Repertorios obtenidos'
-    });
-}
-const obtenerRepertoriosSinLimite = async(req, res = response ) => {
-
-    const { desde = 0 } = req.query;
-    const query = { estado: true };
-
-    const [ total, repertorios ] = await Promise.all([
-        Repertorio.countDocuments(query),
-        Repertorio.find(query)
-            .populate('usuario', 'nombre')
-            .skip( Number( desde ) )
-    ]);
-
+    
     res.status(200).json({
         ok: true,
         total,
@@ -212,6 +193,5 @@ module.exports = {
     obtenerRepertorio,
     actualizarRepertorio,
     borrarRepertorio,
-    obtenerRepertoriosSinLimite,
     obtenerRepertoriosPorUsuario
 }

@@ -7,8 +7,7 @@ const { crearRepertorio,
         obtenerRepertorios,
         obtenerRepertoriosPorUsuario,
         obtenerRepertorio,
-        actualizarRepertorio, 
-        obtenerRepertoriosSinLimite,
+        actualizarRepertorio,
         borrarRepertorio } = require('../controllers/repertorios');
 const { existeRepertorioPorId } = require('../helpers/db-validators');
 
@@ -20,9 +19,6 @@ const router = Router();
 
 //  Obtener todas las categorias con limite de 5 - publico
 router.get('/', obtenerRepertorios );
-
-// Obtener todas las categorias 
-router.get('/all', obtenerRepertoriosSinLimite );
 
 // Obtener una categoria por id - publico
 router.get('/:id',[
