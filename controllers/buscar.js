@@ -51,7 +51,9 @@ const buscarRepertorios = async( termino = '', res = response ) => {
     const regex = new RegExp( termino, 'i' );
     const repertorios = await Repertorio.find({ nombre: regex, estado: true });
 
-    res.json({
+    res.status(200).json({
+        ok: true,
+        msg: 'Repertorios encontrados',
         results: repertorios
     });
 

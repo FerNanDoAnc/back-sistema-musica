@@ -20,6 +20,8 @@ const router = Router();
 //  Obtener todas las categorias con limite de 5 - publico
 router.get('/', obtenerRepertorios );
 
+router.get('/usuario/:usuario', obtenerRepertoriosPorUsuario );
+
 // Obtener una categoria por id - publico
 router.get('/:id',[
     check('id', 'No es un id de Mongo válido').isMongoId(),

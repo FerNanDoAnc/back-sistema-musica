@@ -24,91 +24,28 @@ const obtenerRepertorios = async(req, res = response ) => {
 }
 
 const obtenerRepertoriosPorUsuario = async(req, res=response)=> {
-    // const { limite = 5, desde = 0 } = req.query;
-    // const query = { usuario: req.params};
-    // const { body } = res.params;
-    console.log(res);
-
-    // const [ total, repertorios ] = await Promise.all([
-    //     // Repertorio.countDocuments(query),
-    //     Repertorio.find(query)
-    //         .populate('usuario', 'nombre')
-    //         // .skip( Number( desde ) )
-    //         // .limit(Number( limite ))
-    // ]);
-
-    // res.status(200).json({
-    //     ok: true,
-    //     // total,
-    //     repertorios,
-    //     msg: 'Repertorios obtenidos'
-    // });
-
-
-    // const repertorios = await Repertorio.find({ usuario: req.repertorios});
-    // // console.log(repertorios);
-    // res.status(200).json( {
-    //     ok:true,
-    //     repertorios
-    // });
-
-    // const repertorio = await Repertorio.findById( id )
-    //                         .populate('usuario', 'nombre');
+    const { usuario } = req.params;
+    // const { ...data } = req.body;
     
-    // console.log(repertorio );
+    const { limite = 4, desde = 0 } = req.query;
+    const query = { estado: true };
+    if ( usuario ) {
+        query.usuario = usuario;
+    }
 
-    // res.status(200).json( {
-    //     ok:true,
-    //     repertorio
-    // } );
-
-
-    // const { limite = 5, desde = 0 } = req.query;
-    // const query = { estado: true };
-
-    // const { estado, usuario, ...body } = req.body;
-
-    // // const reperUser = await Repertorio.find({ repertorios: body.repertorios });
-    // // const {loEncontre}=reperUser.map(repertorio=>repertorio.usuario._id)
-    // const usersRepers=await Repertorio.find({usuario:req});
+    const [ total, repertorios ] = await Promise.all([
+        Repertorio.countDocuments(query),
+        Repertorio.find(query)
+            .populate('usuario', 'nombre')
+            .skip( Number( desde ) )
+            .limit(Number( limite ))
+    ]);
     
-    // const [ total, repertorios ] = await Promise.all([
-    //     Repertorio.countDocuments(query),
-    //     Repertorio.find(query)
-    //         .populate('usuario', 'nombre')
-    //         .skip( Number( desde ) )
-    //         .limit(Number( limite ))
-    // ]);
-
-    // res.status(200).json({
-    //     ok: true,
-    //     total,
-    //     repertorios,
-    //     msg: 'Repertorios obtenidos'
-    // });
-
-    // const { estado, usuario, ...body } = req.body;
-    
-    // const reperUser = await Repertorio.find({ repertorios: body.repertorios });
-    // const loEncontre=reperUser.map(repertorio=>repertorio.usuario._id)
-    
-    // const repertorios=await Repertorio.find({usuario:reperUser.map(repertorio=>repertorio.usuario._id)});
-
-    // res.status(200).json({
-    //     ok: true,
-    //     // total,
-    //     repertorios,
-    //     msg: 'Repertorios obtenidos'
-    // });
-    
-        
-    // console.log(loEncontre);
-        
-        // for (const item of reperUser){
-        //     const idEncontrados = item.usuario._id;
-            
-        
-        // }
+    res.status(200).json( {
+        ok:true,
+        total,
+        repertorios
+    } );
 }
 
 const obtenerRepertorio = async(req, res = response ) => {
