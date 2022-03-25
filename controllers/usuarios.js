@@ -17,13 +17,23 @@ const usuariosGet = async(req = request, res = response) => {
             .limit(Number( limite ))
     ]);
 
-    res.json({
+    res.status(200).json({
         ok:true,
         total,
         usuarios
     });
 }
-
+// 
+const usuarioGetPorId = async(req, res = response) => {
+    const { id } = req.params;
+    
+    const usuario = await Usuario.findById( id );
+    res.status(200).json({
+        ok:true,
+        // total,
+        usuario
+    });
+}
 
 // Crear Usuarios
 const usuariosPost = async(req, res = response) => {
@@ -54,19 +64,23 @@ const usuariosPost = async(req, res = response) => {
 const usuariosPut = async(req, res = response) => {
 
     const { id } = req.params;
-    const { _id, password, google, correo, ...resto } = req.body;
-
+    // Resto es todo lo que permite editar
+    const { _id, password, google, ...resto } = req.body;
+    
     if ( password ) {
         // Encriptar la contraseña
         const salt = bcryptjs.genSaltSync();
         resto.password = bcryptjs.hashSync( password, salt );
     }
+    
+    console.log(resto);
 
     const usuario = await Usuario.findByIdAndUpdate( id, resto );
-
-    res.json({
+    
+    res.status(200).json({
         ok:true,
-        usuario
+        usuario,
+        msg: 'Usuario actualizado'
     });
 }
 
@@ -97,4 +111,5 @@ module.exports = {
     usuariosPut,
     usuariosPatch,
     usuariosDelete,
+    usuarioGetPorId
 }

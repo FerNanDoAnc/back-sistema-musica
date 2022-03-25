@@ -16,6 +16,7 @@ const { usuariosGet,
         usuariosPut,
         usuariosPost,
         usuariosDelete,
+        usuarioGetPorId,
         usuariosPatch } = require('../controllers/usuarios');
 
 const router = Router();
@@ -23,11 +24,15 @@ const router = Router();
 
 router.get('/', usuariosGet );
 
+// usuario por id 
+router.get('/:id', usuarioGetPorId );
+
 router.put('/:id',[
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existeUsuarioPorId ),
     check('rol').custom( esRoleValido ), 
-    validarCampos
+    check('correo').custom( emailExiste ),
+    // validarCampos
 ],usuariosPut );
 
 // Crear usuarios
