@@ -24,6 +24,32 @@ const obtenerCanciones = async(req, res = response ) => {
     });
 }
 
+const obtenerCancionesPorRepertorio = async(req, res = response ) => {
+    const { repertorio } = req.params;
+
+    const { limite = 5, desde = 0 } = req.query;
+    const query = { estado: true };
+    if ( repertorio ) {
+        query.repertorio = repertorio;
+    }
+    console.log(query);
+    const [ total, canciones ] = await Promise.all([
+        Cancion.countDocuments(query),
+        Cancion.find(query)
+            .populate('usuario', 'nombre')
+            .populate('repertorio', 'nombre')
+            .skip( Number( desde ) )
+            .limit(Number( limite ))
+    ]);
+
+    res.json({
+        ok:true,
+        msg: 'Canciones obtenidas!',
+        total,
+        canciones
+    });
+}
+
 const obtenerCancion = async(req, res = response ) => {
 
     const { id } = req.params;
@@ -57,9 +83,12 @@ const crearCancion = async(req, res = response ) => {
     const data = {
         ...body,
         nombre: body.nombre.toUpperCase(),
-        usuario: req.usuario._id
+        usuario: req.body.usuario,
+        
+        // con jwt si es q se envia desde el front
+        // usuario: req.usuario._id
     }
-
+    
     const cancion = new Cancion( data );
 
     // Guardar DB
@@ -114,5 +143,6 @@ module.exports = {
     obtenerCanciones,
     obtenerCancion,
     actualizarCancion,
-    borrarCancion
+    borrarCancion,
+    obtenerCancionesPorRepertorio
 }

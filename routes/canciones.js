@@ -7,6 +7,7 @@ const { crearCancion,
         obtenerCanciones,
         obtenerCancion,
         actualizarCancion, 
+        obtenerCancionesPorRepertorio,
         borrarCancion } = require('../controllers/canciones');
 
 const { existeRepertorioPorId, existeCancionPorId } = require('../helpers/db-validators');
@@ -16,6 +17,9 @@ const router = Router();
 
 //  Obtener todas las repertorios - publico
 router.get('/', obtenerCanciones );
+
+//  Obtener todas las repertorios por reprtorio
+router.get('/repertorio/:repertorio', obtenerCancionesPorRepertorio );
 
 // Obtener un repertorio por id - publico
 router.get('/:id',[
