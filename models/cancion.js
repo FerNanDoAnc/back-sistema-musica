@@ -14,7 +14,8 @@ const CancionSchema = Schema({
     usuario: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
-        required: true
+        required: true,
+        type: String
         // TO DO - tipo string si no funciona en el front
     },
     link: {

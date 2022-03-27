@@ -32,7 +32,7 @@ const obtenerCancionesPorRepertorio = async(req, res = response ) => {
     if ( repertorio ) {
         query.repertorio = repertorio;
     }
-    console.log(query);
+    
     const [ total, canciones ] = await Promise.all([
         Cancion.countDocuments(query),
         Cancion.find(query)

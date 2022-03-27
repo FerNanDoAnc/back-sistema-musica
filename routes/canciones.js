@@ -34,7 +34,7 @@ router.post('/', [
     check('nombre','El nombre es obligatorio').not().isEmpty(),
     check('repertorio','No es un id de Mongo').isMongoId(),
     check('repertorio').custom( existeRepertorioPorId ),
-    validarCampos
+    // validarCampos
 ], crearCancion );
 
 // Actualizar - privado - cualquiera con token válido
@@ -48,7 +48,7 @@ router.put('/:id',[
 // Borrar una repertorio - Admin
 router.delete('/:id',[
     // validarJWT,
-    esAdminRole,
+    // esAdminRole,
     check('id', 'No es un id de Mongo válido').isMongoId(),
     check('id').custom( existeCancionPorId ),
     validarCampos,
