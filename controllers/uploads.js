@@ -18,7 +18,7 @@ const cargarArchivo = async(req, res = response) => {
         // txt, md
         // const nombre = await subirArchivo( req.files, ['txt','md'], 'textos' );
         const nombre = await subirArchivo( req.files, undefined, 'imgs' );
-        res.json({ nombre });
+        res.status(200).json({ nombre });
 
     } catch (msg) {
         res.status(400).json({ msg });
@@ -162,7 +162,7 @@ const mostrarImagen = async(req, res = response ) => {
         default:
             return res.status(500).json({ msg: 'Se me olvidó validar esto'});
     }
-
+console.log("img",modelo.img);
 
     // Limpiar imágenes previas
     if ( modelo.img ) {
