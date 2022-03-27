@@ -111,8 +111,8 @@ const actualizarCancion = async( req, res = response ) => {
         data.nombre  = data.nombre.toUpperCase();
     }
 
-    data.usuario = req.usuario._id;
-
+    // data.usuario = req.usuario._id;
+    data.usuario= req.body.usuario;
     const cancion = await Cancion.findByIdAndUpdate(id, data, { new: true });
 
     res.json( {
