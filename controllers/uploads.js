@@ -162,7 +162,6 @@ const mostrarImagen = async(req, res = response ) => {
         default:
             return res.status(500).json({ msg: 'Se me olvidó validar esto'});
     }
-console.log("img",modelo.img);
 
     // Limpiar imágenes previas
     if ( modelo.img ) {

@@ -22,7 +22,9 @@ const CancionSchema = Schema({
         type: String,
         default: "https://www.youtube.com"
     },
-    img: { type: String },
+    img: { 
+        type: String
+    },
     repertorio: {
         type: Schema.Types.ObjectId,
         ref: 'Repertorio',
