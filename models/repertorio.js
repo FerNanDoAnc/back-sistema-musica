@@ -4,7 +4,7 @@ const RepertorioSchema = Schema({
     nombre: {
         type: String,
         required: [true, 'El nombre es obligatorio'],
-        unique: true
+        unique: false
     },
     estado: {
         type: Boolean,
@@ -16,7 +16,16 @@ const RepertorioSchema = Schema({
         ref: 'Usuario',
         required: true,
         type: String,
-    }
+    },
+    integrantes: [
+        { 
+            correo:{ 
+                type: String,
+                required: false,
+                unique: true
+            }
+        }
+    ]
 });
 
 

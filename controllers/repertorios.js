@@ -4,7 +4,7 @@ const { Repertorio } = require('../models');
 
 const obtenerRepertorios = async(req, res = response ) => {
 
-    const { limite = 4, desde = 0 } = req.query;
+    const { limite = 1000, desde = 0 } = req.query;
     const query = { estado: true };
 
     const [ total, repertorios ] = await Promise.all([
@@ -27,7 +27,7 @@ const obtenerRepertoriosPorUsuario = async(req, res=response)=> {
     const { usuario } = req.params;
     // const { ...data } = req.body;
     
-    const { limite = 4, desde = 0 } = req.query;
+    const { limite = 1000, desde = 0 } = req.query;
     const query = { estado: true };
     if ( usuario ) {
         query.usuario = usuario;
@@ -67,12 +67,13 @@ const crearRepertorio = async(req, res = response ) => {
 
     const repertorioDB = await Repertorio.findOne({ nombre });
 
-    if ( repertorioDB ) {
-        return res.status(400).json({
-            ok:false,
-            msg: `El repertorio ${ repertorioDB.nombre }, ya existe`
-        });
-    }
+    // No duplicar repertorio
+    // if ( repertorioDB ) {
+    //     return res.status(400).json({
+    //         ok:false,
+    //         msg: `El repertorio ${ repertorioDB.nombre }, ya existe`
+    //     });
+    // }
 
     // Generar la data a guardar
     const data = {
