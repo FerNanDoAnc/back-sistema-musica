@@ -6,6 +6,7 @@ const { validarJWT, validarCampos, esAdminRole } = require('../middlewares');
 const { crearRepertorio,
         obtenerRepertorios,
         obtenerRepertoriosPorUsuario,
+        obtenerRepertoriosPorCompartido,
         obtenerRepertorio,
         actualizarRepertorio,
         borrarRepertorio } = require('../controllers/repertorios');
@@ -21,6 +22,8 @@ const router = Router();
 router.get('/', obtenerRepertorios );
 
 router.get('/usuario/:usuario', obtenerRepertoriosPorUsuario );
+
+router.get('/compartido/:usuario', obtenerRepertoriosPorCompartido );
 
 // Obtener una categoria por id - publico
 router.get('/:id',[

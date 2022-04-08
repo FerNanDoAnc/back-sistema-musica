@@ -23,6 +23,20 @@ const obtenerRepertorios = async(req, res = response ) => {
     });
 }
 
+const obtenerRepertoriosPorCompartido = async(req, res=response)=> {
+    const { usuario } = req.params;
+    // const { ...data } = req.body;
+    const { limite = 1000, desde = 0 } = req.query;
+    const query = { estado: true };
+    
+    const [integrantes] = await Repertorio.find({ integrantes: { $elemMatch: { correo: usuario } } });
+
+    res.status(200).json( {
+        ok:true,
+        integrantes
+    } );
+}
+
 const obtenerRepertoriosPorUsuario = async(req, res=response)=> {
     const { usuario } = req.params;
     // const { ...data } = req.body;
@@ -47,6 +61,7 @@ const obtenerRepertoriosPorUsuario = async(req, res=response)=> {
         repertorios
     } );
 }
+
 
 const obtenerRepertorio = async(req, res = response ) => {
 
@@ -131,5 +146,6 @@ module.exports = {
     obtenerRepertorio,
     actualizarRepertorio,
     borrarRepertorio,
-    obtenerRepertoriosPorUsuario
+    obtenerRepertoriosPorUsuario,
+    obtenerRepertoriosPorCompartido
 }
