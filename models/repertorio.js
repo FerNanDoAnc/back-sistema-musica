@@ -21,8 +21,6 @@ const RepertorioSchema = Schema({
         { 
             correo:{ 
                 type: String,
-                required: false,
-                unique: true
             }
         }
     ]
