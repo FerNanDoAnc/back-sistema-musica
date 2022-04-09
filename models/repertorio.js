@@ -3,8 +3,7 @@ const { Schema, model } = require('mongoose');
 const RepertorioSchema = Schema({
     nombre: {
         type: String,
-        required: [true, 'El nombre es obligatorio'],
-        unique: false
+        required: [true, 'El nombre es obligatorio']
     },
     estado: {
         type: Boolean,

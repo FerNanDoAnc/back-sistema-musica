@@ -78,7 +78,7 @@ const crearRepertorio = async(req, res = response ) => {
 
     const nombre = req.body.nombre.toUpperCase();
 
-    const repertorioDB = await Repertorio.findOne({ nombre });
+    // const repertorioDB = await Repertorio.findOne({ nombre });
 
     // No duplicar repertorio
     // if ( repertorioDB ) {
