@@ -29,7 +29,6 @@ const obtenerRepertoriosPorCompartido = async(req, res=response)=> {
     // BUSCAR TODOS-por ahora funcionan los dos
     // const integrantes = await Repertorio.find({ integrantes: { $elemMatch: { correo:  usuario } } });
     const integrantes = await Repertorio.find({"integrantes.correo": usuario});
-    console.log("integrnates",integrantes);
     res.status(200).json( {
         ok:true,
         integrantes
