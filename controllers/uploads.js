@@ -7,7 +7,7 @@ cloudinary.config( process.env.CLOUDINARY_URL );
 const { response } = require('express');
 const { subirArchivo } = require('../helpers');
 
-const { Usuario, Cancion } = require('../models');
+const { Usuario, Cancion, Repertorio } = require('../models');
 
 
 const cargarArchivo = async(req, res = response) => {
@@ -49,6 +49,16 @@ const actualizarImagen = async(req, res = response ) => {
             if ( !modelo ) {
                 return res.status(400).json({
                     msg: `No existe una cancion con el id ${ id }`
+                });
+            }
+        
+        break;
+
+        case 'repertorios':
+            modelo = await Repertorio.findById(id);
+            if ( !modelo ) {
+                return res.status(400).json({
+                    msg: `No existe un repertorio con el id ${ id }`
                 });
             }
         
@@ -106,6 +116,16 @@ const actualizarImagenCloudinary = async(req, res = response ) => {
             }
         
         break;
+
+        case 'repertorios':
+            modelo = await Repertorio.findById(id);
+            if ( !modelo ) {
+                return res.status(400).json({
+                    msg: `No existe un repertorio con el id ${ id }`
+                });
+            }
+        
+        break;
     
         default:
             return res.status(500).json({ msg: 'Se me olvidó validar esto'});
@@ -154,6 +174,16 @@ const mostrarImagen = async(req, res = response ) => {
             if ( !modelo ) {
                 return res.status(400).json({
                     msg: `No existe una cancion con el id ${ id }`
+                });
+            }
+        
+        break;
+
+        case 'repertorios':
+            modelo = await Repertorio.findById(id);
+            if ( !modelo ) {
+                return res.status(400).json({
+                    msg: `No existe un repertorio con el id ${ id }`
                 });
             }
         
