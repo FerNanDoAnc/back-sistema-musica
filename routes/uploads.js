@@ -14,14 +14,14 @@ router.post( '/', validarArchivoSubir, cargarArchivo );
 router.put('/:coleccion/:id', [
     validarArchivoSubir,
     check('id','El id debe de ser de mongo').isMongoId(),
-    check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios','canciones'] ) ),
+    check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios','canciones','repertorios'] ) ),
     // validarCampos
 ], actualizarImagenCloudinary )
 // ], actualizarImagen )
 
 router.get('/:coleccion/:id', [
     check('id','El id debe de ser de mongo').isMongoId(),
-    check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios','canciones'] ) ),
+    check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios','canciones','repertorios'] ) ),
     // validarCampos
 ], mostrarImagen  )
 
