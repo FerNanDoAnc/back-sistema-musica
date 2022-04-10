@@ -4,7 +4,7 @@ const { Cancion } = require('../models');
 
 const obtenerCanciones = async(req, res = response ) => {
 
-    const { limite = 5, desde = 0 } = req.query;
+    const { limite = 1000, desde = 0 } = req.query;
     const query = { estado: true };
 
     const [ total, canciones ] = await Promise.all([
@@ -27,7 +27,7 @@ const obtenerCanciones = async(req, res = response ) => {
 const obtenerCancionesPorRepertorio = async(req, res = response ) => {
     const { repertorio } = req.params;
 
-    const { limite = 5, desde = 0 } = req.query;
+    const { limite = 1000, desde = 0 } = req.query;
     const query = { estado: true };
     if ( repertorio ) {
         query.repertorio = repertorio;
