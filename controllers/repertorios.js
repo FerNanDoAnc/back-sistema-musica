@@ -4,7 +4,7 @@ const { Repertorio } = require('../models');
 
 const obtenerRepertorios = async(req, res = response ) => {
 
-    const { limite = 1000, desde = 0 } = req.query;
+    const { limite = 100, desde = 0 } = req.query;
     const query = { estado: true };
 
     const [ total, repertorios ] = await Promise.all([
@@ -39,7 +39,7 @@ const obtenerRepertoriosPorUsuario = async(req, res=response)=> {
     const { usuario } = req.params;
     // const { ...data } = req.body;
     
-    const { limite = 1000, desde = 0 } = req.query;
+    const { limite = 100, desde = 0 } = req.query;
     const query = { estado: true };
     if ( usuario ) {
         query.usuario = usuario;

@@ -7,7 +7,7 @@ const { generarJWT } = require('../helpers/generar-jwt');
 
 const usuariosGet = async(req = request, res = response) => {
 
-    const { limite = 5, desde = 0 } = req.query;
+    const { limite = 100, desde = 0 } = req.query;
     const query = { estado: true };
 
     const [ total, usuarios ] = await Promise.all([
