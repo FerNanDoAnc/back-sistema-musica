@@ -7,8 +7,7 @@ const { coleccionesPermitidas } = require('../helpers');
 
 
 const router = Router();
-var cors = require('cors');
-router.use(cors());
+
 
 router.post( '/', validarArchivoSubir, cargarArchivo );
 
