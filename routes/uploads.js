@@ -7,11 +7,11 @@ const { coleccionesPermitidas } = require('../helpers');
 
 
 const router = Router();
+var cors = require('cors')
 
+router.post( '/', cors(), validarArchivoSubir, cargarArchivo );
 
-router.post( '/', validarArchivoSubir, cargarArchivo );
-
-router.put('/:coleccion/:id', [
+router.put('/:coleccion/:id',  cors(), [
     validarArchivoSubir,
     check('id','El id debe de ser de mongo').isMongoId(),
     check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios','canciones','repertorios'] ) ),
@@ -19,7 +19,7 @@ router.put('/:coleccion/:id', [
 ], actualizarImagenCloudinary )
 // ], actualizarImagen )
 
-router.get('/:coleccion/:id', [
+router.get('/:coleccion/:id', cors(), [
     check('id','El id debe de ser de mongo').isMongoId(),
     check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios','canciones','repertorios'] ) ),
     // validarCampos
