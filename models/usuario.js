@@ -17,7 +17,7 @@ const UsuarioSchema = Schema({
     },
     img: {
         type: String,
-        default: 'https://res.cloudinary.com/da0vmaada/image/upload/v1649564512/Profile-default/perfilvacio2_hhbfab.png'
+        // default: 'https://res.cloudinary.com/da0vmaada/image/upload/v1649564512/Profile-default/perfilvacio2_hhbfab.png'
     },
     rol: {
         type: String,
