@@ -72,12 +72,12 @@ const crearCancion = async(req, res = response ) => {
     const cancionDB = await Cancion.findOne({ nombre: body.nombre });
     
     // El modelo esta en false, x eso pasa normal
-    if ( cancionDB ) {
-        return res.status(400).json({
-            ok:false,
-            msg: `La cancion ${ cancionDB.nombre }, ya existe`
-        });
-    }
+    // if ( cancionDB ) {
+    //     return res.status(400).json({
+    //         ok:false,
+    //         msg: `La cancion ${ cancionDB.nombre }, ya existe`
+    //     });
+    // }
 
     // Generar la data a guardar
     const data = {
