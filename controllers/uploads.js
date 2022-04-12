@@ -25,8 +25,7 @@ const cargarArchivo = async(req, res = response) => {
         res.status(200).json({ nombre });
 
     } catch (msg) {
-        res.status(400).json({ msg });
-        console.log("cargarArchivo",error);
+        res.status(400).json({ msg, msg2: 'Error al subir archivo' });
     }
 
 }
@@ -92,7 +91,7 @@ const actualizarImagen = async(req, res = response ) => {
 
         res.json( modelo );
     } catch (error) {
-        console.log("actualizarImagen",error);
+       return res.status(500).json({ msg: 'Error al actualizar la imagen', error });
     }
 
 }
@@ -158,7 +157,7 @@ const actualizarImagenCloudinary = async(req, res = response ) => {
         
         res.json( modelo );
     } catch (error) {
-        console.log("actualizarImagenCloudinary",error);
+        return res.status(500).json({ msg: 'Error al actualizar Imagen Cloudinary ', error });
     }
 
 }
@@ -217,7 +216,7 @@ const mostrarImagen = async(req, res = response ) => {
         res.sendFile( pathImagen );
 
     } catch (error) {
-        console.log("mostrarImagen",error);
+        return res.status(500).json({ msg: 'Error al mostrar la imagen', error });
     }
 }
 
