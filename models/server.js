@@ -156,14 +156,14 @@ class Server {
     }
 
     listen() {
-        this.app.listen( this.port, () => {
+        this.server.listen( this.port, () => {
             console.log('Servidor corriendo en puerto', this.port );
         });
 
         // Servidor socket
-        this.server.listen( this.portSocket, () => {
-            console.log('Io corriendo en puerto', this.portSocket );
-        });
+        // this.server.listen( this.portSocket, () => {
+        //     console.log('Io corriendo en puerto', this.portSocket );
+        // });
     }
 
 }
