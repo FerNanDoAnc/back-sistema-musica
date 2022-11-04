@@ -40,6 +40,7 @@ const obtenerCancionesPorRepertorio = async(req, res = response ) => {
             .populate('repertorio', 'nombre')
             .skip( Number( desde ) )
             .limit(Number( limite ))
+            .sort({ indice: 1 }) // ordenar por indice
     ]);
 
     res.json({

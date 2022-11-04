@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const CancionSchema = Schema({
+    indice:{
+        type: Number,
+        required: false
+    },
     nombre: {
         type: String,
         required: [true, 'El nombre es obligatorio'],
