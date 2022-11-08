@@ -25,8 +25,12 @@ const RepertorioSchema = Schema({
     ],
     img: { 
         type: String,
-        default: 'https://res.cloudinary.com/da0vmaada/image/upload/v1649523873/Profile-default/back-repert_qgphwc.webp'
+        default: 'https://res.cloudinary.com/da0vmaada/image/upload/v1667933926/Profile-default/logo-repertorio_nd79pq.webp'
     },
+    favorito: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 

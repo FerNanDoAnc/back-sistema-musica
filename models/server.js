@@ -6,7 +6,7 @@ const http = require('http');
 
 const { dbConnection } = require('../database/config'); 
 // 
-const { Cancion } = require('.');
+const { Cancion, Repertorio } = require('.');
 
 class Server {
 
@@ -114,6 +114,24 @@ class Server {
                 catch (error) {
                     console.log(error);
                 }
+            });
+
+            // Actualizar repertorio de canciones
+            socket.on("update-repertorio",async (data)=>{
+                 try {
+                    const { _id } = data;
+                    const {estado,usuario, ...datas} =data;
+                    console.log(_id,datas);
+                    await Repertorio.findByIdAndUpdate(_id, datas, { new: true })
+                        .exec((err, repertorios) => {
+                            if (err) {
+                                return this.io.emit('update-repertorio', { ok: false, err });
+                            }
+                            this.io.emit('update-repertorio', { ok: true, msg: 'Repertorio actualizado', repertorios });
+                        });
+                 } catch (error) {
+                    console.log(error);
+                 }
             });
 
         }); 

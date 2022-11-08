@@ -112,7 +112,7 @@ const actualizarRepertorio = async( req, res = response ) => {
     const { id } = req.params;
     const { estado, usuario, ...data } = req.body;
 
-    data.nombre  = data.nombre.toUpperCase();
+    // data.nombre  = data.nombre.toUpperCase();
     // data.usuario = req.usuario._id;
     usuario: req.body.usuario
     const repertorio = await Repertorio.findByIdAndUpdate(id, data, { new: true });
